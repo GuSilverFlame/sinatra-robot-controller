@@ -5,11 +5,8 @@ set :bind, '127.0.0.1'
 set :port, 4567
 
 
-hostname = 'localhost'
-port = 2000
-
-#hostname = '192.168.43.208'
-#port = 8090
+hostname = '192.168.43.208'
+port = 8090
 
 s = TCPSocket.open(hostname, port)
 
