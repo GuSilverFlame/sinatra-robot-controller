@@ -1,5 +1,8 @@
 require 'sinatra'
 require 'socket'     
+require 'rack/mobile-detect'
+
+use Rack::MobileDetect
 
 set :bind, '127.0.0.1'
 set :port, 4567
@@ -8,10 +11,22 @@ set :port, 4567
 hostname = '192.168.43.208'
 port = 8090
 
+
 s = TCPSocket.open(hostname, port)
 
+helpers do
+  def get_layout
+    @layout_default = ( request.env['X_MOBILE_DEVICE'] ? :layout_mobile : true )
+  end
+
+end
+
+before do
+  get_layout()
+end
+
 get '/' do
-	erb  :althome
+	erb  :althome, :layout => @layout_default
 end
 
 get '/old' do
