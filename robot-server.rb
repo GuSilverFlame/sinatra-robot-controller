@@ -4,13 +4,12 @@ require 'rack/mobile-detect'
 
 use Rack::MobileDetect
 
-set :bind, '127.0.0.1'
+set :bind, '192.168.43.150'
 set :port, 4567
 
 
 hostname = '192.168.43.208'
 port = 8090
-
 
 s = TCPSocket.open(hostname, port)
 
