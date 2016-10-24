@@ -4,12 +4,17 @@ require 'rack/mobile-detect'
 
 use Rack::MobileDetect
 
-set :bind, '192.168.43.150'
+set :bind, '0.0.0.0'
 set :port, 4567
 
 
-hostname = '192.168.43.208'
+
 port = 8090
+
+puts "digite o ip do robô ou deixe em branco para modo de teste"
+hostname = gets.chomp
+
+hostname = 'localhost' if hostname.empty?
 
 s = TCPSocket.open(hostname, port)
 
@@ -50,5 +55,4 @@ end
 error Sinatra::NotFound do
 		@pname = request.path_info[1, request.path_info.length]
 		erb  :fourofour
-
 end
