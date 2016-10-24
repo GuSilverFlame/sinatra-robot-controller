@@ -1,17 +1,36 @@
 require 'sinatra'
 require 'socket'     
+require 'rack/mobile-detect'
 
-set :bind, '127.0.0.1'
+use Rack::MobileDetect
+
+set :bind, '0.0.0.0'
 set :port, 4567
 
 
-hostname = '192.168.43.208'
+
 port = 8090
+
+puts "digite o ip do robô ou deixe em branco para modo de teste"
+hostname = gets.chomp
+
+hostname = 'localhost' if hostname.empty?
 
 s = TCPSocket.open(hostname, port)
 
+helpers do
+  def get_layout
+    @layout_default = ( request.env['X_MOBILE_DEVICE'] ? :layout_mobile : true )
+  end
+
+end
+
+before do
+  get_layout()
+end
+
 get '/' do
-	erb  :althome
+	erb  :althome, :layout => @layout_default
 end
 
 get '/old' do
@@ -36,5 +55,4 @@ end
 error Sinatra::NotFound do
 		@pname = request.path_info[1, request.path_info.length]
 		erb  :fourofour
-
 end
