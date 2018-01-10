@@ -1,5 +1,5 @@
 require 'sinatra'
-require 'socket'     
+require 'socket'
 require 'rack/mobile-detect'
 
 use Rack::MobileDetect
@@ -22,7 +22,6 @@ helpers do
   def get_layout
     @layout_default = ( request.env['X_MOBILE_DEVICE'] ? :layout_mobile : true )
   end
-
 end
 
 before do
@@ -30,29 +29,29 @@ before do
 end
 
 get '/' do
-	erb  :althome, :layout => @layout_default
+  erb  :althome, :layout => @layout_default
 end
 
 get '/old' do
-	erb  :home
+  erb  :home
 end
 
-post '/:com' do  
-	case params[:com]
-		when "codehere40"
-			s.print "back"
-		when "codehere39"
-			s.print "right"
-		when "codehere38"
-			s.print "front"
-		when "codehere37"
-			s.print "left"
-		when "stahp"
-			s.print "stop"
-		end
+post '/:com' do
+  case params[:com]
+  when "codehere40"
+    s.print "back"
+  when "codehere39"
+    s.print "right"
+  when "codehere38"
+    s.print "front"
+  when "codehere37"
+    s.print "left"
+  when "stahp"
+    s.print "stop"
+  end
 end
 
 error Sinatra::NotFound do
-		@pname = request.path_info[1, request.path_info.length]
-		erb  :fourofour
+  @pname = request.path_info[1, request.path_info.length]
+  erb  :fourofour
 end
