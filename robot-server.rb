@@ -7,8 +7,6 @@ use Rack::MobileDetect
 set :bind, '0.0.0.0'
 set :port, 4567
 
-
-
 port = 8090
 
 puts "digite o ip do robô ou deixe em branco para modo de teste"
